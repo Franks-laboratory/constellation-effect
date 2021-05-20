@@ -30,6 +30,8 @@ canvas.addEventListener("mousemove", event => {
 	}
 })
 
+let hue = 0;
+
 class Particle {
 	constructor () {
 		this.x = mouse.x
@@ -39,6 +41,7 @@ class Particle {
 		this.size = Math.random() * 15 + 1
 		this.speedX = Math.random() * 3 - 1.5
 		this.speedY = Math.random() * 3 - 1.5
+		this.color = `hsl(${hue}, 100%, 50%)`
 	}
 
 	update () {
@@ -48,7 +51,7 @@ class Particle {
 	}
 
 	draw () {
-		ctx.fillStyle = "hsl"
+		ctx.fillStyle = this.color
 		ctx.beginPath()
 		ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
 		ctx.fill()
@@ -75,10 +78,11 @@ function handleParticles () {
 }
 
 function animate () {
-	//ctx.clearRect(0, 0, canvas.width, canvas.height)
-	ctx.fillStyle = "rgba(0, 0, 0, 0.02)"
-	ctx.fillRect(0, 0, canvas.width, canvas.height)
+	ctx.clearRect(0, 0, canvas.width, canvas.height)
+	//ctx.fillStyle = "rgba(0, 0, 0, 0.02)"
+	//ctx.fillRect(0, 0, canvas.width, canvas.height)
 	handleParticles()
+	hue += 2
 	requestAnimationFrame(animate)
 }
 
